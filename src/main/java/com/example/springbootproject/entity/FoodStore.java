@@ -10,12 +10,13 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class FoodChain {
+public class FoodStore {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    String name;
+    String employee;
+    String information;
 
 }
