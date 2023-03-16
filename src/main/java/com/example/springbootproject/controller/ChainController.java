@@ -49,6 +49,8 @@ public class ChainController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         updateChain.setName(chain.getName());
+        updateChain.setAdress(chain.getAdress());
+
 
         repository.save(updateChain);
 
