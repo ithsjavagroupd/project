@@ -17,7 +17,7 @@ public class Chain {
     private Long id;
 
     String name;
-    String adress;
+    String address;
 
     Long memberID;
 

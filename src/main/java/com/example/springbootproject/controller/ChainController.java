@@ -2,12 +2,15 @@ package com.example.springbootproject.controller;
 
 import com.example.springbootproject.entity.Chain;
 import com.example.springbootproject.repository.ChainRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/foodchain")
+@RequestMapping("/chain")
 public class ChainController {
 
     private final ChainRepository repository;
@@ -38,6 +41,23 @@ public class ChainController {
     void delete(@PathVariable long id) {
         repository.deleteById(id);
     }
+
+    @PutMapping("/{id}")
+    ResponseEntity<Chain> updateChain(@PathVariable Long id, @RequestBody Chain chain) {
+        Chain updateChain = repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        updateChain.setName(chain.getName());
+        updateChain.setAddress(chain.getAddress());
+
+
+        repository.save(updateChain);
+
+        return ResponseEntity.ok(updateChain);
+
+    }
+
+
 
 
 
