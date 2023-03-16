@@ -18,19 +18,6 @@ public class Chain {
 
     String name;
     String adress;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    Long memberID;
 
 }
