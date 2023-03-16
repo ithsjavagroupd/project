@@ -1,34 +1,33 @@
 package com.example.springbootproject.controller;
 
-import com.example.springbootproject.entity.FoodChain;
-import com.example.springbootproject.repository.FoodChainRepository;
-import jakarta.transaction.Transactional;
+import com.example.springbootproject.entity.Chain;
+import com.example.springbootproject.repository.ChainRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/foodchain")
-public class FoodChainController {
+public class ChainController {
 
-    private final FoodChainRepository repository;
+    private final ChainRepository repository;
 
-    public FoodChainController(FoodChainRepository foodChainRepository) {
-        repository = foodChainRepository;
+    public ChainController(ChainRepository chainRepository) {
+        repository = chainRepository;
     }
 
     @GetMapping("/{id}")
-    FoodChain getName(@PathVariable long id) {
+    Chain getName(@PathVariable long id) {
         return repository.findById(id).orElseThrow();
     }
 
     @GetMapping
-    List<FoodChain> getFoodChains()  {
+    List<Chain> getFoodChains()  {
       return repository.findAll();
     }
 
     @PostMapping
-    void addFoodChain(@RequestBody FoodChain foodChain) {
+    void addFoodChain(@RequestBody Chain foodChain) {
         String name = foodChain.getName();
         if (name == null || name.isEmpty())
             throw new IllegalStateException();
