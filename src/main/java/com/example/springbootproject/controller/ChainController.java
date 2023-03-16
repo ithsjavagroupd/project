@@ -2,7 +2,6 @@ package com.example.springbootproject.controller;
 
 import com.example.springbootproject.entity.Chain;
 import com.example.springbootproject.repository.ChainRepository;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +48,7 @@ public class ChainController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         updateChain.setName(chain.getName());
-        updateChain.setAdress(chain.getAdress());
+        updateChain.setAddress(chain.getAddress());
 
 
         repository.save(updateChain);
