@@ -27,7 +27,7 @@ public class EmployeeController {
     ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
         var employeeName = employee.getName();
         if(employeeName.isEmpty())
-            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         repository.save(employee);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -63,10 +63,5 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
-
-
-
-
 
 }
