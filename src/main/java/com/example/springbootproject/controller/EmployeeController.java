@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/employees")
@@ -24,21 +25,24 @@ public class EmployeeController {
 
     //Create
     @PostMapping
-    ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
+    void addEmployee(@RequestBody Employee employee){
         var employeeName = employee.getName();
-        if(employeeName.isEmpty())
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(employeeName == null || employeeName.isEmpty())
+            throw new IllegalStateException();
         repository.save(employee);
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     //R
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    List<Employee> getEmployee(@PathVariable Long id){
+    List<Employee> getEmployeeById(@PathVariable Long id){
         if (repository.findById(id).isEmpty())
-            return repository.findAll();
+            throw new NoSuchElementException();
         return repository.findAllById(id);
+    }
+
+    @GetMapping
+    private List<Employee> getEmployees() {
+        return repository.findAll();
     }
 
     //U
