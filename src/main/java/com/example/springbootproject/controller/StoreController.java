@@ -49,6 +49,7 @@ public class StoreController {
 
         updateStore.setName(store.getName());
         updateStore.setAddress(store.getAddress());
+        updateStore.setPhoneNumber(store.getPhoneNumber());
         repository.save(updateStore);
 
         return ResponseEntity.ok(updateStore);
