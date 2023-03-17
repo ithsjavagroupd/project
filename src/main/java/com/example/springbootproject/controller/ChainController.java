@@ -30,11 +30,11 @@ public class ChainController {
     }
 
     @PostMapping
-    void addChain(@RequestBody Chain foodChain) {
-        String name = foodChain.getName();
+    void addChain(@RequestBody Chain chain) {
+        String name = chain.getName();
         if (name == null || name.isEmpty())
             throw new IllegalStateException();
-        repository.save(foodChain);
+        repository.save(chain);
     }
 
     @DeleteMapping("/{id}")
