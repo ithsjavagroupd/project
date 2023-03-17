@@ -2,6 +2,7 @@ package com.example.springbootproject.controller;
 
 import com.example.springbootproject.entity.Employee;
 import com.example.springbootproject.repository.EmployeeRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/employees")
@@ -25,11 +27,10 @@ public class EmployeeController {
 
     //Create
     @PostMapping
-    void addEmployee(@RequestBody Employee employee){
-        var employeeName = employee.getName();
-        if(employeeName == null || employeeName.isEmpty())
+    Employee addEmployee(@RequestBody Optional<Employee> employee){
+        if(employee.isEmpty())
             throw new IllegalStateException();
-        repository.save(employee);
+        return repository.save(employee.get());
     }
 
     //R

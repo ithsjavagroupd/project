@@ -12,13 +12,17 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
-    @Column(nullable = false)
+    //@Column(nullable = false)
+    @NonNull
     private String name;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
+    @NonNull
     private String address;
-    @Column(nullable = false)
+    //@Column(nullable = false)
+    @NonNull
     private String phoneNumber;
 
    // @ManyToOne
