@@ -1,7 +1,10 @@
 package com.example.springbootproject.controller;
 
+import com.example.springbootproject.dto.ChainDto;
 import com.example.springbootproject.entity.Chain;
+import com.example.springbootproject.mapper.Mapper;
 import com.example.springbootproject.repository.ChainRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,19 +17,25 @@ import java.util.List;
 public class ChainController {
 
     private final ChainRepository repository;
+ //   @Autowired
+    private final Mapper mapper;
 
-    public ChainController(ChainRepository chainRepository) {
+    public ChainController(ChainRepository chainRepository, Mapper mapper) {
         repository = chainRepository;
+        this.mapper = mapper;
     }
 
     @GetMapping("/{id}")
-    Chain getName(@PathVariable long id) {
-        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    ChainDto getName(@PathVariable long id) {
+        var toConvert = repository.findById(id);
+        var converted = mapper.map(toConvert);
+        if(converted.)
+            return converted. orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping
-    List<Chain> getChains()  {
-      return repository.findAll();
+    List<ChainDto> getChains()  {
+      return mapper.map(repository.findAll());
     }
 
     @PostMapping
