@@ -11,7 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/branch")
+@RequestMapping("/branches")
 public class BranchController {
     private final BranchRepository repository;
 
