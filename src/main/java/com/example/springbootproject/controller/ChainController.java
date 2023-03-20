@@ -10,7 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/chain")
+@RequestMapping("/chains")
 public class ChainController {
 
     private final ChainRepository repository;
