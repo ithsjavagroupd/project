@@ -10,27 +10,32 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.NoSuchElementException;
 
 @ControllerAdvice
     @ResponseBody
     public class GlobalControllerAdvice {
-        @ExceptionHandler(ResponseStatusException.class)
-        @ResponseStatus(HttpStatus.NOT_FOUND)
-        public String handleNoSuchElementException(){
-            return "Invalid id, no such element";
-        }
+    @ExceptionHandler(ResponseStatusException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleNoSuchElementException(){
+        return "Invalid id, no such element";
+    }
     @ExceptionHandler(IllegalStateException.class)
-    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String badRequestException(){
         return "Invalid input";
     }
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String nullValueInputException(){
         return "Invalid input";
     }
-
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String missingColumnException(){
+        return "Invalid input";
+    }
 
 
 }

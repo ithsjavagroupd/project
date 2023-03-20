@@ -35,12 +35,9 @@ public class EmployeeController {
 
     //R
     @GetMapping("/{id}")
-    List<Employee> getEmployeeById(@PathVariable Long id){
-        if (repository.findById(id).isEmpty())
-            throw new NoSuchElementException();
-        return repository.findAllById(id);
+    Employee getEmployeeById(@PathVariable Long id){
+        return repository.findById(id).orElseThrow(NoSuchElementException::new);
     }
-
     @GetMapping
     private List<Employee> getEmployees() {
         return repository.findAll();
@@ -51,11 +48,11 @@ public class EmployeeController {
     ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
         var updatedEmployee = repository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-            updatedEmployee.setName(employee.getName());
-            updatedEmployee.setAddress(employee.getAddress());
-            updatedEmployee.setPhoneNumber(employee.getPhoneNumber());
-            repository.save(updatedEmployee);
-            return ResponseEntity.ok(updatedEmployee);
+        updatedEmployee.setName(employee.getName());
+        updatedEmployee.setAddress(employee.getAddress());
+        updatedEmployee.setPhoneNumber(employee.getPhoneNumber());
+        repository.save(updatedEmployee);
+        return ResponseEntity.ok(updatedEmployee);
     }
 
     //D
@@ -68,5 +65,4 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
 }
