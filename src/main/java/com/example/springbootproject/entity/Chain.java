@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
@@ -15,10 +16,10 @@ public class Chain {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NonNull
     String name;
+    @NonNull
     String address;
-
     Long memberID;
 
 }
