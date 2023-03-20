@@ -1,16 +1,18 @@
 package com.example.springbootproject.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
+@NamedEntityGraph(name = "Chain.members",
+    attributeNodes = @NamedAttributeNode("members") )
 public class Chain {
 
     @Id
@@ -20,6 +22,8 @@ public class Chain {
     String name;
     @NonNull
     String address;
-    Long memberID;
+
+    @ManyToMany
+    private Set<Member> members = new HashSet<>();
 
 }

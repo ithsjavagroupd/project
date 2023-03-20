@@ -50,15 +50,9 @@ public class ChainController {
         updateChain.setName(chain.getName());
         updateChain.setAddress(chain.getAddress());
 
-
         repository.save(updateChain);
 
         return ResponseEntity.ok(updateChain);
 
     }
-
-
-
-
-
 }
