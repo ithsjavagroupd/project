@@ -21,7 +21,7 @@ public class StoreController {
 
     @GetMapping("/{id}")
     Store getName(@PathVariable long id) {
-        return repository.findById(id).orElseThrow();
+        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping
