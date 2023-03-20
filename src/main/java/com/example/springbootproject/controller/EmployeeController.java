@@ -36,7 +36,7 @@ public class EmployeeController {
     //R
     @GetMapping("/{id}")
     Employee getEmployeeById(@PathVariable Long id){
-        return repository.findById(id).orElseThrow(NoSuchElementException::new);
+        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
     @GetMapping
     private List<Employee> getEmployees() {

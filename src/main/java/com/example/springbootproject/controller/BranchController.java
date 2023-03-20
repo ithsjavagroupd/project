@@ -21,7 +21,7 @@ public class BranchController {
 
     @GetMapping("/{id}")
     Branch getABranch(@PathVariable long id) {
-        return repository.findById(id).orElseThrow();
+        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping
