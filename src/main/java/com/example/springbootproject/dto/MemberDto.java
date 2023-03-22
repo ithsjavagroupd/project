@@ -1,6 +1,7 @@
 package com.example.springbootproject.dto;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
