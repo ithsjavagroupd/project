@@ -23,7 +23,7 @@ public class Chain {
     @NonNull
     String address;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Member> members = new HashSet<>();
 
 }
