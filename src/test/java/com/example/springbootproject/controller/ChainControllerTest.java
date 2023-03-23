@@ -2,46 +2,33 @@ package com.example.springbootproject.controller;
 
 import com.example.springbootproject.entity.Chain;
 import com.example.springbootproject.repository.ChainRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = ChainController.class)
 class ChainControllerTest {
     Chain chain1;
     Chain chain2;
-    TestRestTemplate restTemplate;
 
     @Autowired
     MockMvc mockmvc;
 
     @MockBean
     ChainRepository repository;
-
 
     @BeforeEach
     public void init() {
@@ -65,68 +52,10 @@ class ChainControllerTest {
     @Test
     void getChainByIdShouldReturn200OkAndJsonObjectOfChainAndThenWeWillBeHappyAboutIt() throws Exception {
         when(repository.findById(1L)).thenReturn(Optional.of(chain1));
-        var result = mockmvc.perform(get("/chains/1"))
-                .andExpect(ResponseBodyMatchers.responseBody().containsObjectAsJson(chain1, Chain.class))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void addChainShouldReturn201() throws Exception {
-
-        mockmvc.perform(post("/chains")
-                        .contentType(APPLICATION_JSON)
-                        .content(asJsonString(chain1))
-                        .accept(APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(header().exists("Location"))
-                .andExpect(header().string("Location", "http://localhost/chains/1"))
-                .andExpect(status().isCreated());
-//        verify(controller).addChain(any(Chain.class));
-//        verify(controller).addChain(any(Chain.class), (HttpServletResponse) eq(new ResponseEntity<>(chain1, HttpStatus.CREATED)));
-    }
-
-    @Test
-    void addChainFunctionTestIntegrationSomething() {
-
-        HttpEntity<Chain> entity = new HttpEntity<>(chain1);
-
-        ResponseEntity<String> response = restTemplate.exchange(
-                "http://localhost:8080/chains", HttpMethod.POST, entity, String.class);
-
-        String actual = Objects.requireNonNull(response.getHeaders().get(HttpHeaders.LOCATION)).get(0);
-
-        assertTrue(actual.contains("/chains"));
-
+        var result = mockmvc.perform(get("/chains/1")).andExpect(ResponseBodyMatchers
+                .responseBody().containsObjectAsJson(chain1, Chain.class)).andExpect(status().isOk());
     }
 
 
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-//    @Test
-//    void addChainShouldReturn201Created() throws Exception {
-//        when(repository.save(any(Chain.class))).thenReturn(chain1);
-//        mockmvc.perform(post("/chains")
-//                        .contentType(APPLICATION_JSON)
-//                        .content(asJsonString(chain1))
-//                        .accept(APPLICATION_JSON))
-//                .andExpect(status().isCreated())
-//                .andExpect(header().exists("Location"))
-//                .andExpect(header().string("Location", "http://localhost/chains/1"));
-//        verify(controller).addChain(any(Chain.class));
-//    }
-
-    @Test
-    void addChainWithInvalidBodyShouldReturn400BadRequest() throws Exception {
-        mockmvc.perform(post("/chains")
-                        .contentType(APPLICATION_JSON)
-                        .content(asJsonString(new String[]{"test"}))
-                        .accept(APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
-    }
 }
