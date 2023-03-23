@@ -2,14 +2,14 @@ package com.example.springbootproject.repository;
 
 import com.example.springbootproject.entity.Branch;
 import com.example.springbootproject.projection.BranchName;
+
 import org.springframework.data.repository.ListCrudRepository;
 
 import java.util.List;
 
 public interface BranchRepository extends ListCrudRepository<Branch, Long> {
-
-    BranchName findNamesBy();
-
+//    BranchName findNamesBy();
+    //hur hittar vi enbart ett namn om jag inte får lägga in en parameter här?
     List<BranchName> findAllNamesBy();
 
 }
