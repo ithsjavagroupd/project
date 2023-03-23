@@ -1,6 +1,7 @@
 package com.example.springbootproject.controller;
 
 import com.example.springbootproject.entity.Store;
+import com.example.springbootproject.projection.StoreName;
 import com.example.springbootproject.repository.StoreRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,11 @@ public class StoreController {
     @GetMapping
     List<Store> getStores() {
         return repository.findAll();
+    }
+
+    @GetMapping("/dto")
+    List<StoreName> getAllDtoNames(){
+        return repository.findAllNamesBy();
     }
 
     @PostMapping
