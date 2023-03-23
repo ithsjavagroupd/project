@@ -1,6 +1,7 @@
 package com.example.springbootproject.controller;
 
 import com.example.springbootproject.entity.Member;
+import com.example.springbootproject.projection.MemberName;
 import com.example.springbootproject.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,11 @@ public class MemberController {
     @GetMapping
     List<Member> getMembers() {
         return repository.findAll();
+    }
+
+    @GetMapping("/dto")
+    List<MemberName> getAllDtoMembers(){
+        return repository.findAllNamesBy();
     }
 
     @PostMapping
