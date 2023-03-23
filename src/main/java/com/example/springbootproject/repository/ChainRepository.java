@@ -12,8 +12,6 @@ public interface ChainRepository extends ListCrudRepository<Chain, Long> {
     @EntityGraph(value = "Chain.members")
     List<Chain> findAll();
 
-
-    // Update method with DTO URI
-    @EntityGraph(attributePaths = {"chains"})
-    List<ChainName> findNamesBy();
+    @EntityGraph(attributePaths = {"members"})
+    Chain findChainById(String id);
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chains</title>
+</head>
+<body>
+<h2 th:text="${message}"></h2>
+<table>
+    <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Address</td>
+    </tr>
+    <tr th:each="chain: ${listAllChains}">
+        <td th:text="${chain.getId()}"></td>
+        <td th:text="${chain.getName()}"></td>
+        <td th:text="${chain.getAddress()}"></td>
+        <td><a th:href="@{http://localhost:8080/chains/{id}/members(id=${chain.getId()})}">Show members</a></td>
+    </tr>
+</table>
+</body>
+</html>
