@@ -29,6 +29,11 @@ public class ChainController {
       return repository.findAll();
     }
 
+    @GetMapping("/{id}/members")
+    Chain listMembersOfChain(@PathVariable String id) {
+        return repository.findChainById(id);
+    }
+
     @PostMapping
     void addChain(@RequestBody Chain chain) {
         String name = chain.getName();
@@ -55,4 +60,6 @@ public class ChainController {
         return ResponseEntity.ok(updateChain);
 
     }
+
+
 }
