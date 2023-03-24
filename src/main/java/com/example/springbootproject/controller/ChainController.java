@@ -56,11 +56,12 @@ public class ChainController {
     }
 
     @PostMapping
-    void addChain(@RequestBody Chain chain) {
+    ResponseEntity<Chain> addChain(@RequestBody Chain chain) {
         String name = chain.getName();
         if (name == null || name.isEmpty())
             throw new IllegalStateException();
         repository.save(chain);
+        return new ResponseEntity<>(chain, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
