@@ -2,6 +2,7 @@ package com.example.springbootproject.controller;
 
 import com.example.springbootproject.entity.Chain;
 import com.example.springbootproject.repository.ChainRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,19 +11,21 @@ import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.bind.annotation.RequestBody;
 
-
-import java.net.http.HttpResponse;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -36,6 +39,9 @@ class ChainControllerTest {
 
     @MockBean
     ChainRepository repository;
+
+    @MockBean
+    ChainController controller;
 
     @BeforeEach
     public void init() {
@@ -64,17 +70,24 @@ class ChainControllerTest {
                 .andExpect(status().isOk());
     }
 
-//    @Test
-//    void getChainsShouldReturnListOfAllChainsAsJsonAnd200Ok() throws Exception {
-//        List<Chain> allChains = new ArrayList<>();
-//        allChains.add(chain1);
-//        allChains.add(chain2);
-//        when(repository.findAll()).thenReturn(List.of(chain1, chain2));
-//        var result = mockmvc.perform(get("/chains"))
-//                .andExpect(ResponseBodyMatchers.responseBody().containsObjectAsJson(List.of(chain1, chain2), Chain.class))
-//                .andExpect(status().isOk());
-//    }
+    @Test
+    void addChainShouldReturn201() throws Exception {
 
+        mockmvc.perform(MockMvcRequestBuilders
+                .post("/chains")
+                        .contentType(APPLICATION_JSON)
+                        .content(asJsonString(chain1))
+                .accept(APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andReturn();
+    }
 
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
