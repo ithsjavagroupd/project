@@ -16,7 +16,7 @@
         <td th:text="${chain.getId()}"></td>
         <td th:text="${chain.getName()}"></td>
         <td th:text="${chain.getAddress()}"></td>
-        <td><a th:href="@{http://localhost:8080/chains/{id}/members(id=${chain.getId()})}">Show members</a></td>
+        <td><a th:href="@{http://localhost:8080/allchains/{id}/members(id=${chain.getId()})}">Show members</a></td>
     </tr>
 </table>
 </body>

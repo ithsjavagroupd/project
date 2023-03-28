@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 th:text="${chainName}"></h1>
+<h2 th:text="${message}"></h2>
+<table>
+  <tr>
+  <td>ID</td>
+  <td>Name</td>
+  </tr>
+  <tr th:each="m: ${membersOfChain}">
+    <td th:text="${m.getId()}"></td>
+    <td th:text="${m.getName()}"></td>
+  </tr>
+    <tr></tr>
+</table>
+<hr>
+<form>
+    <input type="button" value="Back to all chains" onclick="history.back()">
+</form>
+
+</body>
+</html>
