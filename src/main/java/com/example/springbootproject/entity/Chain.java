@@ -34,5 +34,6 @@ public class Chain {
     @JoinColumn(name="cs_fk")
     @JsonManagedReference
     private List<Store> stores = new ArrayList<>();
+
 }
 
