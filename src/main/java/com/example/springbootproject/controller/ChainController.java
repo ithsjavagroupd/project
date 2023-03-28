@@ -1,6 +1,8 @@
 package com.example.springbootproject.controller;
 
 import com.example.springbootproject.entity.Chain;
+import com.example.springbootproject.projection.ChainName;
+import com.example.springbootproject.projection.StoreName;
 import com.example.springbootproject.repository.ChainRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,16 @@ public class ChainController {
     @GetMapping
     List<Chain> getChains()  {
       return repository.findAll();
+    }
+
+    @GetMapping("/dto")
+    List<ChainName> getAllDtoNames(){
+        return repository.findAllNamesBy();
+    }
+
+    @GetMapping("/dto/{id}")
+    ChainName getOneDtoName(@PathVariable long id){
+        return repository.findNameById(id);
     }
 
     @GetMapping("/{id}/members")
