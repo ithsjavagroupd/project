@@ -15,6 +15,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+import static org.springframework.http.ResponseEntity.ok;
+
 @RestController
 @RequestMapping("/chains")
 public class ChainController {
@@ -87,11 +89,11 @@ public class ChainController {
 
         updateChain.setName(chain.getName());
         updateChain.setAddress(chain.getAddress());
+        updateChain.setMembers(chain.getMembers());
 
         repository.save(updateChain);
 
         return ResponseEntity.ok(updateChain);
-
     }
 
     @PutMapping("{chainId}/members/{memberId}")
