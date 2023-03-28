@@ -34,12 +34,20 @@ public class MemberController {
 
     @GetMapping("/dto")
     List<MemberName> getAllDtoMembers(){
-        return repository.findAllNamesBy();
+        try {
+            return repository.findAllNamesBy();
+        } catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/dto/{id}")
     MemberName getOneDtoName(@PathVariable long id){
-        return repository.findNamesById(id);
+        try {
+            return repository.findNamesById(id);
+        } catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping
