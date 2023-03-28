@@ -4,11 +4,14 @@ import com.example.springbootproject.entity.Chain;
 import com.example.springbootproject.projection.ChainName;
 import com.example.springbootproject.projection.StoreName;
 import com.example.springbootproject.repository.ChainRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -56,12 +59,18 @@ public class ChainController {
     }
 
     @PostMapping
-    ResponseEntity<Chain> addChain(@RequestBody Chain chain) {
+    ResponseEntity<Void> addChain(@RequestBody Chain chain) {
+        System.out.println("HELLO");
         String name = chain.getName();
         if (name == null || name.isEmpty())
             throw new IllegalStateException();
         repository.save(chain);
-        return new ResponseEntity<>(chain, HttpStatus.CREATED);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(chain.getId()).toUri();
+        return ResponseEntity.created(location).build();
+
+        //response.setHeader("Location", location.toString());
+        //return new ResponseEntity<>(chain, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
