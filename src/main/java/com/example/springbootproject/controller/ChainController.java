@@ -33,13 +33,22 @@ public class ChainController {
 
     @GetMapping("/dto")
     List<ChainName> getAllDtoNames(){
-        return repository.findAllNamesBy();
+        try {
+            return repository.findAllNamesBy();
+        } catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/dto/{id}")
     ChainName getOneDtoName(@PathVariable long id){
-        return repository.findNameById(id);
+        try {
+            return repository.findNameById(id);
+        } catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
+
 
     @GetMapping("/{id}/members")
     Chain listMembersOfChain(@PathVariable String id) {
