@@ -10,4 +10,5 @@ import java.util.List;
 public interface MemberRepository extends ListCrudRepository<Member, Long> {
 
     List<MemberName> findAllNamesBy();
+    MemberName findNamesById(long id);
 }

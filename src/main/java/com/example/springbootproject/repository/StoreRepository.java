@@ -9,4 +9,7 @@ import java.util.List;
 public interface StoreRepository extends ListCrudRepository<Store, Long> {
  List<StoreName> findAllNamesBy();
 
+ StoreName findNamesById(long id);
+
+
 }

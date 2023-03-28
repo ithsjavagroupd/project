@@ -8,8 +8,7 @@ import org.springframework.data.repository.ListCrudRepository;
 import java.util.List;
 
 public interface BranchRepository extends ListCrudRepository<Branch, Long> {
-//    BranchName findNamesBy();
-    //hur hittar vi enbart ett namn om jag inte får lägga in en parameter här?
     List<BranchName> findAllNamesBy();
+    BranchName findNamesById(long id);
 
 }
