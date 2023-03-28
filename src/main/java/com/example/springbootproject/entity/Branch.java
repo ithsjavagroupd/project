@@ -1,9 +1,7 @@
 package com.example.springbootproject.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,4 +15,9 @@ public class Branch {
     private Long id;
 
     String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name= "chainId_fk")
+    @JsonBackReference
+    private Chain chain;
 }
