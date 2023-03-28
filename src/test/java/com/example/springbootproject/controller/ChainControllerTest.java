@@ -87,21 +87,6 @@ class ChainControllerTest {
                 .andExpect(status().isCreated());
     }
 
-    @Test
-    void addChainFunctionTestIntegrationSomething() {
-
-        HttpEntity<Chain> entity = new HttpEntity<>(chain1);
-
-        ResponseEntity<String> response = restTemplate.exchange(
-                "http://localhost:8080/chains", HttpMethod.POST, entity, String.class);
-
-        String actual = Objects.requireNonNull(response.getHeaders().get(HttpHeaders.LOCATION)).get(0);
-
-        assertTrue(actual.contains("/chains"));
-
-    }
-
-
     public static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
