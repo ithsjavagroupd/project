@@ -35,6 +35,11 @@ public class StoreController {
         return repository.findAllNamesBy();
     }
 
+    @GetMapping("/dto/{id}")
+    StoreName getOneDtoName(@PathVariable long id){
+        return repository.findNamesById(id);
+    }
+
     @PostMapping
     void addStore(@RequestBody Store store) {
         String name = store.getName();
