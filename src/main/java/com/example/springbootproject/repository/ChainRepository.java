@@ -13,9 +13,9 @@ public interface ChainRepository extends ListCrudRepository<Chain, Long> {
     List<Chain> findAll();
 
     @EntityGraph(attributePaths = {"members"})
-    Chain findChainById(String id);
+    Chain findChainById(long id);
 
-//    @EntityGraph(attributePaths = {"members"})
     List<ChainName> findAllNamesBy();
+
     ChainName findNameById(long id);
 }
