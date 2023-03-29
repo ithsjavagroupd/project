@@ -21,7 +21,7 @@ public class Employee {
     @NonNull
     private String phoneNumber;
 
-   // @ManyToOne
+    // @ManyToOne
     //@JoinColumn(name = "storeEmployeeID",)
 
 }

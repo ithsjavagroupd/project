@@ -9,5 +9,6 @@ import java.util.List;
 
 public interface BranchRepository extends ListCrudRepository<Branch, Long> {
     List<BranchName> findAllNamesBy();
+
     BranchName findNamesById(Long id);
 }

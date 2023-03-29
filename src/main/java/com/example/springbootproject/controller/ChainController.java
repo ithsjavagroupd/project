@@ -14,8 +14,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-import static org.springframework.http.ResponseEntity.ok;
-
 @RestController
 @RequestMapping("/chains")
 public class ChainController {
@@ -32,6 +30,7 @@ public class ChainController {
     ChainName getName(@PathVariable long id) {
         return repository.findNameById(id);
     }
+
     @GetMapping
     List<Chain> getChains() {
         return repository.findAll();

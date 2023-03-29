@@ -7,9 +7,9 @@ import org.springframework.data.repository.ListCrudRepository;
 import java.util.List;
 
 public interface StoreRepository extends ListCrudRepository<Store, Long> {
- List<StoreName> findAllNamesBy();
+    List<StoreName> findAllNamesBy();
 
- StoreName findNamesById(long id);
+    StoreName findNamesById(long id);
 
 
 }
