@@ -4,34 +4,36 @@ import com.example.springbootproject.entity.Chain;
 import com.example.springbootproject.projection.ChainName;
 import com.example.springbootproject.projection.StoreName;
 import com.example.springbootproject.repository.ChainRepository;
-import com.example.springbootproject.repository.MemberRepository;
-import jakarta.transaction.Transactional;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/chains")
 public class ChainController {
 
     private final ChainRepository repository;
-    private final MemberRepository memberRepo;
 
-    public ChainController(ChainRepository chainRepository, MemberRepository memberRepository) {
+    public ChainController(ChainRepository chainRepository) {
         repository = chainRepository;
-        memberRepo = memberRepository;
     }
 
     @GetMapping("/{id}")
     Chain getName(@PathVariable long id) {
         return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+
     @GetMapping
-    List<Chain> getChains(){
-        return repository.findAll();
+    List<Chain> getChains()  {
+      return repository.findAll();
     }
 
     @GetMapping("/dto")
@@ -59,11 +61,18 @@ public class ChainController {
     }
 
     @PostMapping
-    void addChain(@RequestBody Chain chain) {
+    ResponseEntity<Void> addChain(@RequestBody Chain chain) {
+        System.out.println("HELLO");
         String name = chain.getName();
         if (name == null || name.isEmpty())
             throw new IllegalStateException();
         repository.save(chain);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(chain.getId()).toUri();
+        return ResponseEntity.created(location).build();
+
+        //response.setHeader("Location", location.toString());
+        //return new ResponseEntity<>(chain, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
@@ -78,26 +87,11 @@ public class ChainController {
 
         updateChain.setName(chain.getName());
         updateChain.setAddress(chain.getAddress());
+        updateChain.setMembers(chain.getMembers());
 
         repository.save(updateChain);
 
         return ResponseEntity.ok(updateChain);
-
-    }
-
-    @PutMapping("{chainId}/members/{memberId}")
-    @Transactional
-    public void addMemberToChain(@PathVariable Long memberId, @PathVariable Long chainId) {
-        repository.findById(chainId)
-                .ifPresent(chain -> chain.getMembers().add(memberRepo.findById(memberId)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))));
-    }
-
-    @DeleteMapping("{chainId}/members/{memberId}")
-    @Transactional
-    public void deleteMemberFromChain(@PathVariable Long chainId, @PathVariable Long memberId) {
-        repository.findById(chainId)
-                .ifPresent(chain -> chain.getMembers().removeIf(member -> member.getId().equals(memberId)));
     }
 
 
