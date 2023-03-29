@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ChainName {
     String getName();
+    Long getId();
 
-    List<Member> getMembers();
+ //   List<Member> getMembers();
 }

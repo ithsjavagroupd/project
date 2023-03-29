@@ -1,7 +1,8 @@
 package com.example.springbootproject.controller;
 
 import com.example.springbootproject.entity.Chain;
-import com.example.springbootproject.entity.Member;
+import com.example.springbootproject.projection.ChainName;
+import com.example.springbootproject.projection.StoreName;
 import com.example.springbootproject.repository.ChainRepository;
 import com.example.springbootproject.repository.MemberRepository;
 import jakarta.transaction.Transactional;
@@ -32,6 +33,25 @@ public class ChainController {
     List<Chain> getChains(){
         return repository.findAll();
     }
+
+    @GetMapping("/dto")
+    List<ChainName> getAllDtoNames(){
+        try {
+            return repository.findAllNamesBy();
+        } catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/dto/{id}")
+    ChainName getOneDtoName(@PathVariable long id){
+        try {
+            return repository.findNameById(id);
+        } catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     @GetMapping("/{id}/members")
     Chain listMembersOfChain(@PathVariable String id) {

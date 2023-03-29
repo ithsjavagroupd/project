@@ -32,7 +32,20 @@ public class StoreController {
 
     @GetMapping("/dto")
     List<StoreName> getAllDtoNames(){
-        return repository.findAllNamesBy();
+        try {
+            return repository.findAllNamesBy();
+        } catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/dto/{id}")
+    StoreName getOneDtoName(@PathVariable long id){
+        try {
+            return repository.findNamesById(id);
+        } catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping

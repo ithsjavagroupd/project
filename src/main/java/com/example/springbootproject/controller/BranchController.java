@@ -3,6 +3,7 @@ package com.example.springbootproject.controller;
 
 import com.example.springbootproject.entity.Branch;
 import com.example.springbootproject.projection.BranchName;
+import com.example.springbootproject.projection.StoreName;
 import com.example.springbootproject.repository.BranchRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,20 @@ public class BranchController {
 
     @GetMapping("/dto")
     List<BranchName> getAllDtoBranch(){
-        return repository.findAllNamesBy();
+        try {
+            return repository.findAllNamesBy();
+        } catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/dto/{id}")
+    BranchName getOneDtoName(@PathVariable long id){
+        try {
+            return repository.findNamesById(id);
+        } catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping
