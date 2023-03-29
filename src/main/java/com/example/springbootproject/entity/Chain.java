@@ -14,8 +14,8 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@NamedEntityGraph(name = "Chain.members",
-    attributeNodes = @NamedAttributeNode("members") )
+@NamedEntityGraph(name = "Chain.all",
+    attributeNodes ={ @NamedAttributeNode("members"), @NamedAttributeNode("branches") })
 public class Chain {
 
     @Id
@@ -30,8 +30,7 @@ public class Chain {
     private Set<Member> members = new HashSet<>();
 
     @OneToMany(mappedBy = "chain",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonManagedReference
     private List<Branch> branches = new ArrayList<>();
 

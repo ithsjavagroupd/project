@@ -6,10 +6,15 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.repository.ListCrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ChainRepository extends ListCrudRepository<Chain, Long> {
 
-    @EntityGraph(value = "Chain.members")
+    @Override
+    @EntityGraph(value = "Chain.all")
+    Optional<Chain> findById(Long aLong);
+
+    @EntityGraph(value = "Chain.all")
     List<Chain> findAll();
 
     @EntityGraph(attributePaths = {"members"})
