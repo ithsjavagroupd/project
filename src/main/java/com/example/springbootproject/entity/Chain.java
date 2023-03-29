@@ -16,6 +16,7 @@ import java.util.Set;
 @Setter
 @NamedEntityGraph(name = "Chain.all",
     attributeNodes ={ @NamedAttributeNode("members"), @NamedAttributeNode("stores") })
+
 public class Chain {
 
     @Id
@@ -32,6 +33,7 @@ public class Chain {
     @OneToMany(targetEntity = Store.class
             , cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="cs_fk")
+
     @JsonManagedReference
     private List<Store> stores = new ArrayList<>();
 
