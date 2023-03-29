@@ -59,7 +59,7 @@ public class MemberController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    void deleteMember(@PathVariable Long id) {
+    public void deleteMember(@PathVariable Long id) {
         if (repository.findById(id).isPresent())
             repository.deleteById(id);
         else
