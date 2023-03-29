@@ -29,7 +29,6 @@ public class Chain {
     @ManyToMany
     private Set<Member> members = new HashSet<>();
 
-
     @OneToMany(targetEntity = Store.class
             , cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="cs_fk")
