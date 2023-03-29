@@ -4,8 +4,7 @@ import com.example.springbootproject.entity.Chain;
 import com.example.springbootproject.projection.ChainName;
 import com.example.springbootproject.projection.StoreName;
 import com.example.springbootproject.repository.ChainRepository;
-import com.example.springbootproject.repository.MemberRepository;
-import jakarta.transaction.Transactional;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,20 +21,19 @@ import static org.springframework.http.ResponseEntity.ok;
 public class ChainController {
 
     private final ChainRepository repository;
-    private final MemberRepository memberRepo;
 
-    public ChainController(ChainRepository chainRepository, MemberRepository memberRepository) {
+    public ChainController(ChainRepository chainRepository) {
         repository = chainRepository;
-        memberRepo = memberRepository;
     }
 
     @GetMapping("/{id}")
     Chain getName(@PathVariable long id) {
         return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+
     @GetMapping
-    List<Chain> getChains(){
-        return repository.findAll();
+    List<Chain> getChains()  {
+      return repository.findAll();
     }
 
     @GetMapping("/dto")
@@ -94,21 +92,6 @@ public class ChainController {
         repository.save(updateChain);
 
         return ResponseEntity.ok(updateChain);
-    }
-
-    @PutMapping("{chainId}/members/{memberId}")
-    @Transactional
-    public void addMemberToChain(@PathVariable Long memberId, @PathVariable Long chainId) {
-        repository.findById(chainId)
-                .ifPresent(chain -> chain.getMembers().add(memberRepo.findById(memberId)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))));
-    }
-
-    @DeleteMapping("{chainId}/members/{memberId}")
-    @Transactional
-    public void deleteMemberFromChain(@PathVariable Long chainId, @PathVariable Long memberId) {
-        repository.findById(chainId)
-                .ifPresent(chain -> chain.getMembers().removeIf(member -> member.getId().equals(memberId)));
     }
 
 
