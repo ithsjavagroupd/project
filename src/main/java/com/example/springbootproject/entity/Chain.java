@@ -16,7 +16,6 @@ import java.util.Set;
 @Setter
 @NamedEntityGraph(name = "Chain.all",
     attributeNodes ={ @NamedAttributeNode("members"), @NamedAttributeNode("stores") })
-
 public class Chain {
 
     @Id
