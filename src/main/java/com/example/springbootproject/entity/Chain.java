@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NamedEntityGraph(name = "Chain.members",
-        attributeNodes = @NamedAttributeNode("members"))
+    attributeNodes = @NamedAttributeNode("members") )
 public class Chain {
 
     @Id

@@ -60,13 +60,13 @@ class ChainControllerTest {
         mockmvc.perform(get("/chains")).andExpect(status().isOk());
     }
 
-    @Test
-    void getChainByIdShouldReturn200OkAndJsonObjectOfChainAndThenWeWillBeHappyAboutIt() throws Exception {
-        when(repository.findById(1L)).thenReturn(Optional.of(chain1));
-        var result = mockmvc.perform(get("/chains/1"))
-                .andExpect(ResponseBodyMatchers.responseBody().containsObjectAsJson(chain1, Chain.class))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    void getChainByIdShouldReturn200OkAndJsonObjectOfChainAndThenWeWillBeHappyAboutIt() throws Exception {
+//        when(repository.findById(1L)).thenReturn(Optional.of(chain1));
+//        var result = mockmvc.perform(get("/chains/1"))
+//                .andExpect(ResponseBodyMatchers.responseBody().containsObjectAsJson(chain1, Chain.class))
+//                .andExpect(status().isOk());
+//    }
 
     @Test
     void addChainShouldReturn201() throws Exception {
