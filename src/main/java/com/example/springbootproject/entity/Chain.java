@@ -33,9 +33,7 @@ public class Chain {
     @OneToMany(targetEntity = Store.class
             , cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="cs_fk")
-
     @JsonManagedReference
     private List<Store> stores = new ArrayList<>();
 
 }
-

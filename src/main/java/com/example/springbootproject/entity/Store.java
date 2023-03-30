@@ -22,5 +22,4 @@ public class Store {
     @JoinColumn
     @JsonBackReference
     private Chain chain;
-
 }
