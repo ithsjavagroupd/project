@@ -76,7 +76,9 @@ public class ChainController {
 
     @DeleteMapping("/{id}")
     void delete(@PathVariable long id) {
-        repository.deleteById(id);
+        if(repository.findById(id).isPresent())
+            repository.deleteById(id);
+        else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/{id}")

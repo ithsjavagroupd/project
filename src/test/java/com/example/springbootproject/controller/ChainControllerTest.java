@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -97,9 +98,11 @@ class ChainControllerTest {
     }
     @Test
     void deleteChainShouldResultInTheNonExistensOfDeletedChainAlsoReturn200Ok() throws Exception{
+        when(repository.findById(chain1.getId())).thenReturn(Optional.of(chain1));
         willDoNothing().given(repository).deleteById(chain1.getId());
         ResultActions response = mockmvc.perform(delete("/chains/{id}", chain1.getId()));
         response.andExpect(status().isOk());
+        Mockito.verify(repository).deleteById(chain1.getId());
     }
 
     @Test

@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -51,11 +53,14 @@ public class MemberController {
     }
 
     @PostMapping
-    void addMember(@RequestBody Member member) {
+    ResponseEntity<Void> addMember(@RequestBody Member member) {
         String name = member.getName();
         if (name == null || name.isEmpty())
             throw new IllegalStateException();
         repository.save(member);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(member.getId()).toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping("/{id}")
