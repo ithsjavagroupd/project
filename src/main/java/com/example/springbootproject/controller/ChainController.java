@@ -71,8 +71,6 @@ public class ChainController {
                 .buildAndExpand(chain.getId()).toUri();
         return ResponseEntity.created(location).build();
 
-        //response.setHeader("Location", location.toString());
-        //return new ResponseEntity<>(chain, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

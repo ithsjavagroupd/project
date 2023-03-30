@@ -10,7 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -30,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ChainControllerTest {
     Chain chain1;
     Chain chain2;
-    TestRestTemplate restTemplate;
 
     @Autowired
     MockMvc mockmvc;
@@ -60,13 +58,13 @@ class ChainControllerTest {
         mockmvc.perform(get("/chains")).andExpect(status().isOk());
     }
 
-//    @Test
-//    void getChainByIdShouldReturn200OkAndJsonObjectOfChainAndThenWeWillBeHappyAboutIt() throws Exception {
-//        when(repository.findById(1L)).thenReturn(Optional.of(chain1));
-//        var result = mockmvc.perform(get("/chains/1"))
-//                .andExpect(ResponseBodyMatchers.responseBody().containsObjectAsJson(chain1, Chain.class))
-//                .andExpect(status().isOk());
-//    }
+    @Test
+    void getChainByIdShouldReturn200OkAndJsonObjectOfChainAndThenWeWillBeHappyAboutIt() throws Exception {
+        when(repository.findChainById(1L)).thenReturn(chain1);
+            mockmvc.perform(get("/chains/1/members"))
+                .andExpect(ResponseBodyMatchers.responseBody().containsObjectAsJson(chain1, Chain.class))
+                .andExpect(status().isOk());
+    }
 
     @Test
     void addChainShouldReturn201() throws Exception {
