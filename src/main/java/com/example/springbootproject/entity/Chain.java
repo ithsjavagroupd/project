@@ -29,9 +29,9 @@ public class Chain {
     @ManyToMany
     private Set<Member> members = new HashSet<>();
 
-    @OneToMany(mappedBy = "chain",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(targetEntity = Store.class
+            , cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name="cs_fk")
     @JsonManagedReference
     private List<Store> stores = new ArrayList<>();
-
 }

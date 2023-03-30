@@ -1,6 +1,7 @@
 package com.example.springbootproject.controller;
 
 import com.example.springbootproject.entity.Chain;
+import com.example.springbootproject.entity.Store;
 import com.example.springbootproject.projection.ChainName;
 import com.example.springbootproject.repository.ChainRepository;
 import com.example.springbootproject.repository.MemberRepository;
@@ -41,6 +42,7 @@ public class ChainController {
     @GetMapping("/{id}")
     Chain getById(@PathVariable long id) {
         return chainRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
     }
 
     @GetMapping
@@ -77,6 +79,11 @@ public class ChainController {
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/{id}/stores")
+    Chain listStoresOfChain(@PathVariable long id) {
+        return chainRepository.findStoresChainById(id);
     }
 
     @PostMapping
