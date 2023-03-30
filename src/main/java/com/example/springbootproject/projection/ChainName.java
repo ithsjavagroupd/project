@@ -4,6 +4,4 @@ public interface ChainName {
     String getName();
 
     Long getId();
-
-    //   List<Member> getMembers();
 }
