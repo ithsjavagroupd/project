@@ -132,6 +132,13 @@ public class ChainController {
                 .ifPresent(chain -> chain.getMembers().removeIf(member -> member.getId().equals(memberId)));
     }
 
+    @PutMapping("{chainId}/stores/{storeId}")
+    @Transactional
+    public void addStoreToChain(@PathVariable Long chainId, @PathVariable Long storeId) {
+            Store store = storeRepository.findById(storeId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            Chain chain = chainRepository.findById(chainId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            chain.getStores().add(store);
+}
 
     @DeleteMapping("{chainId}/stores/{storeId}")
     @Transactional
