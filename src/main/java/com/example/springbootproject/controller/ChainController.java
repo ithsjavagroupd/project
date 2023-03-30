@@ -62,7 +62,6 @@ public class ChainController {
 
     @PostMapping
     ResponseEntity<Void> addChain(@RequestBody Chain chain) {
-        System.out.println("HELLO");
         String name = chain.getName();
         if (name == null || name.isEmpty())
             throw new IllegalStateException();
