@@ -12,23 +12,24 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChainLimitedAccess(HttpSecurity httpSecurity) throws Exception {
-
+    public SecurityFilterChain filterChainFullAccess(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
+                .securityMatcher("/**")
                 .csrf()
-                .ignoringRequestMatchers("/register")
-                .and()
+                .disable()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/register").permitAll()
                 .requestMatchers("/allchains/**").permitAll()
-                .requestMatchers("/**").authenticated()
-                .anyRequest().denyAll()
+                .requestMatchers(HttpMethod.POST, "/register").permitAll()
+                .requestMatchers(HttpMethod.POST, "/**").authenticated()
+                .requestMatchers(HttpMethod.PUT, "/**").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .defaultSuccessUrl("/allchains")
+                .and()
+                .httpBasic()
                 .and()
                 .build();
-
     }
 
     @Bean
