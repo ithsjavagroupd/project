@@ -69,6 +69,7 @@ public class StoreController {
     public void delete(@PathVariable long id) {
         if(storeRepository.findById(id).isPresent())
         storeRepository.deleteById(id);
+
         else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
