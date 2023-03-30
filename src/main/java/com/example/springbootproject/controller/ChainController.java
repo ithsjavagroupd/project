@@ -4,6 +4,7 @@ import com.example.springbootproject.entity.Chain;
 import com.example.springbootproject.projection.ChainName;
 import com.example.springbootproject.repository.ChainRepository;
 import com.example.springbootproject.repository.MemberRepository;
+import com.example.springbootproject.repository.StoreRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +21,12 @@ public class ChainController {
 
     private final ChainRepository chainRepository;
     private final MemberRepository memberRepo;
+    private final StoreRepository storeRepository;
 
-    public ChainController(ChainRepository chainRepository, MemberRepository memberRepository) {
+    public ChainController(ChainRepository chainRepository, MemberRepository memberRepository, StoreRepository storeRepository) {
         this.chainRepository = chainRepository;
         this.memberRepo = memberRepository;
+        this.storeRepository = storeRepository;
     }
 
     @GetMapping("/{id}/name")
@@ -91,7 +94,10 @@ public class ChainController {
 
     @DeleteMapping("/{id}")
     void delete(@PathVariable long id) {
-        chainRepository.deleteById(id);
+        if (chainRepository.findById(id).isPresent())
+            chainRepository.deleteById(id);
+        else
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/{id}")
@@ -102,6 +108,7 @@ public class ChainController {
         updateChain.setName(chain.getName());
         updateChain.setAddress(chain.getAddress());
         updateChain.setMembers(chain.getMembers());
+        updateChain.setStores(chain.getStores());
 
         chainRepository.save(updateChain);
 
@@ -124,4 +131,10 @@ public class ChainController {
     }
 
 
+    @DeleteMapping("{chainId}/stores/{storeId}")
+    @Transactional
+    public void deleteBranchFromChain(@PathVariable Long chainId, @PathVariable Long storeId) {
+        chainRepository.findById(chainId)
+                .ifPresent(chain -> chain.getStores().removeIf(store -> store.getId().equals(storeId)));
+    }
 }

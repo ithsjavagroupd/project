@@ -3,6 +3,7 @@ package com.example.springbootproject.controller;
 import com.example.springbootproject.entity.Store;
 import com.example.springbootproject.projection.StoreName;
 import com.example.springbootproject.repository.StoreRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,8 +62,11 @@ public class StoreController {
     }
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable long id) {
+    @Transactional
+    public void delete(@PathVariable long id) {
+        if(repository.findById(id).isPresent())
         repository.deleteById(id);
+        else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/{id}")
