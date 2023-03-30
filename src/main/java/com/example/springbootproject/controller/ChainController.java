@@ -81,11 +81,6 @@ public class ChainController {
         }
     }
 
-    @GetMapping("/{id}/stores")
-    Chain listStoresOfChain(@PathVariable long id) {
-        return chainRepository.findStoresChainById(id);
-    }
-
     @PostMapping
     ResponseEntity<Void> addChain(@RequestBody Chain chain) {
         String name = chain.getName();
