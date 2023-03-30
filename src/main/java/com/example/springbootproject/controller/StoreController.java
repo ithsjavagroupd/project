@@ -27,7 +27,11 @@ public class StoreController {
 
     @GetMapping
     List<Store> getStores() {
-        return repository.findAll();
+        try {
+            return repository.findAll();
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/dto")
