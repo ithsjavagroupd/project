@@ -2,7 +2,6 @@ package com.example.springbootproject.controller;
 
 import com.example.springbootproject.entity.Member;
 import com.example.springbootproject.projection.MemberName;
-import com.example.springbootproject.projection.StoreName;
 import com.example.springbootproject.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
@@ -33,19 +32,19 @@ public class MemberController {
     }
 
     @GetMapping("/dto")
-    List<MemberName> getAllDtoMembers(){
+    List<MemberName> getAllDtoMembers() {
         try {
             return repository.findAllNamesBy();
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("/dto/{id}")
-    MemberName getOneDtoName(@PathVariable long id){
+    MemberName getOneDtoName(@PathVariable long id) {
         try {
             return repository.findNamesById(id);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
@@ -60,7 +59,7 @@ public class MemberController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    void deleteMember(@PathVariable Long id) {
+    public void deleteMember(@PathVariable Long id) {
         if (repository.findById(id).isPresent())
             repository.deleteById(id);
         else

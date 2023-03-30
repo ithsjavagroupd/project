@@ -3,7 +3,8 @@ package com.example.springbootproject.controller;
 import com.example.springbootproject.entity.Chain;
 import com.example.springbootproject.projection.ChainName;
 import com.example.springbootproject.repository.ChainRepository;
-import jakarta.servlet.http.HttpServletResponse;
+import com.example.springbootproject.repository.MemberRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,16 +14,16 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-import static org.springframework.http.ResponseEntity.ok;
-
 @RestController
 @RequestMapping("/chains")
 public class ChainController {
 
     private final ChainRepository repository;
+    private final MemberRepository memberRepo;
 
-    public ChainController(ChainRepository chainRepository) {
+    public ChainController(ChainRepository chainRepository, MemberRepository memberRepository) {
         repository = chainRepository;
+        memberRepo = memberRepository;
     }
 
     @GetMapping("/{id}")
@@ -70,8 +71,6 @@ public class ChainController {
                 .buildAndExpand(chain.getId()).toUri();
         return ResponseEntity.created(location).build();
 
-        //response.setHeader("Location", location.toString());
-        //return new ResponseEntity<>(chain, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
@@ -91,6 +90,21 @@ public class ChainController {
         repository.save(updateChain);
 
         return ResponseEntity.ok(updateChain);
+    }
+
+    @PutMapping("{chainId}/members/{memberId}")
+    @Transactional
+    public void addMemberToChain(@PathVariable Long memberId, @PathVariable Long chainId) {
+        repository.findById(chainId)
+                .ifPresent(chain -> chain.getMembers().add(memberRepo.findById(memberId)
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))));
+    }
+
+    @DeleteMapping("{chainId}/members/{memberId}")
+    @Transactional
+    public void deleteMemberFromChain(@PathVariable Long chainId, @PathVariable Long memberId) {
+        repository.findById(chainId)
+                .ifPresent(chain -> chain.getMembers().removeIf(member -> member.getId().equals(memberId)));
     }
 
 

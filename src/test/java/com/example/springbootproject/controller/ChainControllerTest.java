@@ -2,6 +2,7 @@ package com.example.springbootproject.controller;
 
 import com.example.springbootproject.entity.Chain;
 import com.example.springbootproject.repository.ChainRepository;
+import com.example.springbootproject.repository.MemberRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -29,13 +29,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ChainControllerTest {
     Chain chain1;
     Chain chain2;
-    TestRestTemplate restTemplate;
 
     @Autowired
     MockMvc mockmvc;
 
     @MockBean
     ChainRepository repository;
+    @MockBean
+    MemberRepository memberRepository;
 
 
     @BeforeEach
@@ -59,8 +60,8 @@ class ChainControllerTest {
 
     @Test
     void getChainByIdShouldReturn200OkAndJsonObjectOfChainAndThenWeWillBeHappyAboutIt() throws Exception {
-        when(repository.findById(1L)).thenReturn(Optional.of(chain1));
-        var result = mockmvc.perform(get("/chains/1"))
+        when(repository.findChainById(1L)).thenReturn(chain1);
+            mockmvc.perform(get("/chains/1/members"))
                 .andExpect(ResponseBodyMatchers.responseBody().containsObjectAsJson(chain1, Chain.class))
                 .andExpect(status().isOk());
     }
@@ -95,8 +96,9 @@ class ChainControllerTest {
                         .accept(APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
+
     @Test
-    void deleteChainShouldResultInTheNonExistensOfDeletedChainAlsoReturn200Ok() throws Exception{
+    void deleteChainShouldResultInTheNonExistensOfDeletedChainAlsoReturn200Ok() throws Exception {
         willDoNothing().given(repository).deleteById(chain1.getId());
         ResultActions response = mockmvc.perform(delete("/chains/{id}", chain1.getId()));
         response.andExpect(status().isOk());
@@ -109,10 +111,10 @@ class ChainControllerTest {
         updateChain.setId(1L);
         updateChain.setName("First Kedjan New Name");
         updateChain.setAddress("Address 1.5");
-        mockmvc.perform(put("/chains/{id}" , updateChain.getId())
-                .contentType(APPLICATION_JSON)
-                .content(asJsonString(updateChain))
-                .accept(APPLICATION_JSON))
+        mockmvc.perform(put("/chains/{id}", updateChain.getId())
+                        .contentType(APPLICATION_JSON)
+                        .content(asJsonString(updateChain))
+                        .accept(APPLICATION_JSON))
                 .andExpect(status().isOk());
 
     }

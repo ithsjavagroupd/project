@@ -8,14 +8,14 @@
 <h1 th:text="${chainName}"></h1>
 <h2 th:text="${message}"></h2>
 <table>
-  <tr>
-  <td>ID</td>
-  <td>Name</td>
-  </tr>
-  <tr th:each="m: ${membersOfChain}">
-    <td th:text="${m.getId()}"></td>
-    <td th:text="${m.getName()}"></td>
-  </tr>
+    <tr>
+        <td>ID</td>
+        <td>Name</td>
+    </tr>
+    <tr th:each="m: ${membersOfChain}">
+        <td th:text="${m.getId()}"></td>
+        <td th:text="${m.getName()}"></td>
+    </tr>
     <tr></tr>
 </table>
 <hr>

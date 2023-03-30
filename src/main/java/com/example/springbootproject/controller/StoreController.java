@@ -31,19 +31,19 @@ public class StoreController {
     }
 
     @GetMapping("/dto")
-    List<StoreName> getAllDtoNames(){
+    List<StoreName> getAllDtoNames() {
         try {
             return repository.findAllNamesBy();
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("/dto/{id}")
-    StoreName getOneDtoName(@PathVariable long id){
+    StoreName getOneDtoName(@PathVariable long id) {
         try {
             return repository.findNamesById(id);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
