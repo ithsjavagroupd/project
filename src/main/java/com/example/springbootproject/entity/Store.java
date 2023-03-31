@@ -1,6 +1,5 @@
 package com.example.springbootproject.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,6 +19,7 @@ public class Store {
     String phoneNumber;
 
     @ManyToOne
+    @JoinColumn
     @JsonBackReference
     private Chain chain;
 }
