@@ -72,14 +72,14 @@ class ChainControllerTest {
     @WithMockUser(roles = "ADMIN")
     void getChainsShouldReturn200OK() throws Exception {
         when(repository.findAll()).thenReturn(List.of(chain1, chain2));
-        mockmvc.perform(get("/chains")).andExpect(status().isOk());
+        mockmvc.perform(get("/api/chains")).andExpect(status().isOk());
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
     void getChainByIdShouldReturn200OkAndJsonObjectOfChainAndThenWeWillBeHappyAboutIt() throws Exception {
         when(repository.findChainById(1L)).thenReturn(chain1);
-        mockmvc.perform(get("/chains/1/members"))
+        mockmvc.perform(get("/api/chains/1/members"))
                 .andExpect(ResponseBodyMatchers.responseBody().containsObjectAsJson(chain1, Chain.class))
                 .andExpect(status().isOk());
     }
@@ -88,7 +88,7 @@ class ChainControllerTest {
     @WithMockUser(roles = "ADMIN")
     void addChainShouldReturn201() throws Exception {
 
-        mockmvc.perform(post("/chains")
+        mockmvc.perform(post("/api/chains")
                         .contentType(APPLICATION_JSON)
                         .content(asJsonString(chain1))
                         .accept(APPLICATION_JSON))
@@ -110,7 +110,7 @@ class ChainControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void addChainWithInvalidBodyShouldReturn400BadRequest() throws Exception {
-        mockmvc.perform(post("/chains")
+        mockmvc.perform(post("/api/chains")
                         .contentType(APPLICATION_JSON)
                         .content(asJsonString(new String[]{"test"}))
                         .accept(APPLICATION_JSON))
@@ -121,7 +121,7 @@ class ChainControllerTest {
     @WithMockUser(roles = "ADMIN")
     void deleteChainShouldResultInTheNonExistensOfDeletedChainAlsoReturn200Ok() throws Exception {
         willDoNothing().given(repository).deleteById(chain1.getId());
-        ResultActions response = mockmvc.perform(delete("/chains/{id}", chain1.getId()));
+        ResultActions response = mockmvc.perform(delete("/api/chains/{id}", chain1.getId()));
         response.andExpect(status().isOk());
     }
 
@@ -133,7 +133,7 @@ class ChainControllerTest {
         updateChain.setId(1L);
         updateChain.setName("First Kedjan New Name");
         updateChain.setAddress("Address 1.5");
-        mockmvc.perform(put("/chains/{id}", updateChain.getId())
+        mockmvc.perform(put("/api/chains/{id}", updateChain.getId())
                         .contentType(APPLICATION_JSON)
                         .content(asJsonString(updateChain))
                         .accept(APPLICATION_JSON))
