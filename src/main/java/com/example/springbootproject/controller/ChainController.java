@@ -15,7 +15,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/chains")
+@RequestMapping("/api/chains")
 public class ChainController {
 
     private final ChainRepository repository;

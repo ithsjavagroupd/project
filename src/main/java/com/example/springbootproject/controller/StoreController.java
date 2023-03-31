@@ -11,7 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/stores")
+@RequestMapping("/api/stores")
 public class StoreController {
 
     private final StoreRepository repository;
