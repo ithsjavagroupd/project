@@ -1,5 +1,6 @@
 package com.example.springbootproject.controller;
 
+import com.example.springbootproject.dto.ChainDto;
 import com.example.springbootproject.service.Publisher;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,8 @@ public class MessageController {
         publisher.publishMessage(id);
     }
 
-//    @PostMapping
-//    public void postMessage(@RequestBody String message){
-//        publisher.publishMessage(message);
-//    }
+    @PostMapping
+    public void postMessage(@RequestBody ChainDto chainDto){
+        publisher.publishMessage(chainDto.toString());
+    }
 }
