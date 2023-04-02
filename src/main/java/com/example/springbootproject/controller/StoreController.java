@@ -87,7 +87,7 @@ public class StoreController {
 
     }
 
-    @PutMapping("{storeId}/chains/{chainId}")
+    @PutMapping("/{storeId}/chains/{chainId}")
     @Transactional
     public void addChainToStore(@PathVariable Long storeId, @PathVariable Long chainId){
         Store store = storeRepository.findById(storeId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

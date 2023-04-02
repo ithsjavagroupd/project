@@ -118,7 +118,7 @@ public class ChainController {
         return ResponseEntity.ok(updateChain);
     }
 
-    @PutMapping("{chainId}/members/{memberId}")
+    @PutMapping("/{chainId}/members/{memberId}")
     @Transactional
     public void addMemberToChain(@PathVariable Long memberId, @PathVariable Long chainId) {
         chainRepository.findById(chainId)
@@ -126,14 +126,14 @@ public class ChainController {
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))));
     }
 
-    @DeleteMapping("{chainId}/members/{memberId}")
+    @DeleteMapping("/{chainId}/members/{memberId}")
     @Transactional
     public void deleteMemberFromChain(@PathVariable Long chainId, @PathVariable Long memberId) {
         chainRepository.findById(chainId)
                 .ifPresent(chain -> chain.getMembers().removeIf(member -> member.getId().equals(memberId)));
     }
 
-    @PutMapping("{chainId}/stores/{storeId}")
+    @PutMapping("/{chainId}/stores/{storeId}")
     @Transactional
     public void addStoreToChain(@PathVariable Long chainId, @PathVariable Long storeId) {
             Store store = storeRepository.findById(storeId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -141,7 +141,7 @@ public class ChainController {
             chain.getStores().add(store);
 }
 
-    @DeleteMapping("{chainId}/stores/{storeId}")
+    @DeleteMapping("/{chainId}/stores/{storeId}")
     @Transactional
     public void deleteStoreFromChain(@PathVariable Long chainId, @PathVariable Long storeId) {
         chainRepository.findById(chainId)
@@ -149,7 +149,7 @@ public class ChainController {
     }
 
 
-    @DeleteMapping("{chainId}/stores/{storeId}")
+    @DeleteMapping("/{chainId}/stores/{storeId}")
     @Transactional
     public void deleteBranchFromChain(@PathVariable Long chainId, @PathVariable Long storeId) {
         chainRepository.findById(chainId)
