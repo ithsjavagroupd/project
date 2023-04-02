@@ -40,9 +40,13 @@
   Group - D Project (JU2022)
 </h1>
 
+<div align="center">
+    <img src="https://cdn.dribbble.com/users/2069402/screenshots/5574718/gif-4mb.gif" alt="Team of coders working together">
+</div>
+
 ## Description
 
-Welcome to our project! This is a web application built using Spring Boot that provides both a web interface and a REST API. The application manages data related to a fictional chain of stores, including members. The purpose of this demo application is that the clients can effortessly manage thier data related to the stores and members, helping them stay organized. We hope you enjoy and we look forward to your contributions!
+Welcome to our group project! This is a web application built using Spring Boot that provides both a web interface and a REST API. The application manages data related to a fictional chain of stores, including members. The purpose of this demo application is that the clients can effortlessly manage their data related to the stores and their respective members, helping them stay organized. We hope you enjoy our project, and we look forward to your contributions!
 
 ## Technologies used
 
@@ -63,7 +67,7 @@ To run this application locally, you'll need to have Java and MySQL installed on
 
 The application also provides a web interface for managing data related to stores and their members. To access the web interface, navigate to ''http://localhost:8080' in your preferred web browser.
 The application also provides a Rest API for managing data programmatically. Here are some example endpoints that you can test with Insomnia or Postman:
-- 'GET /api/chains': retrives a list of chains.
+- 'GET /api/chains': retrieves a list of chains.
 - 'POST /api/stores': creates a new store
 - 'PUT /api/members': creates a new store
 To use REST API, you'll need to authenticate with a valid username and password.
