@@ -1,5 +1,5 @@
  <h1 align="center">
-    <img src="https://www.iths.se/wp-content/uploads/2016/02/thumbnails/ithslogoliggandepayoffrgb-4601-1280x450.png" height="130" alt="ITHS">
+    <img src="https://www.iths.se/wp-content/uploads/2016/02/thumbnails/ithslogoliggandepayoffrgb-4601-1280x450.png" height="150" alt="ITHS">
 </h1>
 
 [//]: # (<h1 align="Center">)
@@ -41,7 +41,7 @@
 </h1>
 
 <div align="center">
-    <img src="https://cdn.dribbble.com/users/2069402/screenshots/5574718/gif-4mb.gif" alt="Team of coders working together">
+    <img src="https://cdn.dribbble.com/users/2069402/screenshots/5574718/gif-4mb.gif" height="250" alt="Team of coders working together">
 </div>
 
 ## Description
