@@ -30,15 +30,6 @@ public class ChainController {
         this.storeRepository = storeRepository;
     }
 
-    @GetMapping("/{id}/name")
-    ChainName getName(@PathVariable long id) {
-        try {
-            return chainRepository.findNameById(id);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-    }
-
     @GetMapping("/{id}")
     Chain getById(@PathVariable long id) {
         return chainRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
