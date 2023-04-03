@@ -147,12 +147,4 @@ public class ChainController {
         chainRepository.findById(chainId)
                 .ifPresent(chain -> chain.getStores().removeIf(store -> store.getId().equals(storeId)));
     }
-
-
-    @DeleteMapping("/{chainId}/stores/{storeId}")
-    @Transactional
-    public void deleteBranchFromChain(@PathVariable Long chainId, @PathVariable Long storeId) {
-        chainRepository.findById(chainId)
-                .ifPresent(chain -> chain.getStores().removeIf(store -> store.getId().equals(storeId)));
-    }
 }
