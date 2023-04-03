@@ -18,7 +18,7 @@ public class MessageJsonController {
     }
 
     @PostMapping("/json")
-    public void postJsonMessage(@RequestBody ChainDto chainDto){
+    public void postJsonMessage(@RequestBody ChainDto chainDto) {
         publisher.sendJsonMessage(chainDto);
     }
 }
