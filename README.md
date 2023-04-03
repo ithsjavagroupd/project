@@ -72,18 +72,8 @@ The application also provides a Rest API for managing data programmatically. Her
 - 'PUT /api/members': creates a new store
 To use REST API, you'll need to authenticate with a valid username and password.
 
-## Contributions
-
-To contribute to this project, please follow these steps:
-1. Fork this repository to your own GitHub account.
-2. Create a new branch for your feature or bug fix.
-3. Make your changes and commit them with clear and descriptive messages.
-4. Push your changes to forked repository.
-5. Create a pull request to merge your changes into the main branch of this repository.
-
-All contributions are welcome and appreciated.
-
 ## Learning Objectives
+
 1. Gain proficiency in using SpringBoot to build a web application. 
 2. Understand the concept of entities and their relationships. 
 3. Learn how to implement authentication and authorization in a web application.
