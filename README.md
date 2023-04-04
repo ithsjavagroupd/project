@@ -65,6 +65,7 @@ The application also provides a Rest API for managing data programmatically. Her
 - 'GET /api/chains': retrieves a list of chains.
 - 'POST /api/stores': creates a new store
 - 'PUT /api/members': creates a new store
+
 To use REST API, you'll need to authenticate with a valid username and password. You can create a new user by running the 'register' endpoint with a POST request.
 
 ## Learning Objectives
