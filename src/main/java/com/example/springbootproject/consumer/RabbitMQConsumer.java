@@ -4,7 +4,6 @@ import com.example.springbootproject.dto.ChainDto;
 import com.example.springbootproject.entity.Chain;
 import com.example.springbootproject.mapper.Mapper;
 import com.example.springbootproject.repository.ChainRepository;
-import com.example.springbootproject.repository.MemberRepository;
 import org.slf4j.Logger;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
@@ -15,13 +14,8 @@ public class RabbitMQConsumer {
     Mapper mapper = new Mapper();
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(RabbitMQConsumer.class);
 
-    public RabbitMQConsumer(ChainRepository chainRepository, MemberRepository memberRepository) {
+    public RabbitMQConsumer(ChainRepository chainRepository) {
         this.chainRepository = chainRepository;
-    }
-
-    @RabbitListener(queues = "${rabbitmq.queue.name}")
-    public void consumeMessage(String message) {
-        logger.info("Received message from queue: " + message);
     }
 
     @RabbitListener(queues = "${rabbitmq.json.queue.name}")
