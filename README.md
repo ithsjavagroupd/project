@@ -2,11 +2,6 @@
     <img src="https://www.iths.se/wp-content/uploads/2016/02/thumbnails/ithslogoliggandepayoffrgb-4601-1280x450.png" height="150" alt="ITHS">
 </h1>
 
-[//]: # (<h1 align="Center">)
-
-[//]: # (    <img src="blob:https://ithogskolan-my.sharepoint.com/6a5a0dc7-dfb7-4638-8ce0-97065e3c8af6.gif" height="130"> )
-
-[//]: # (</h1>)
 <section>
 <div align="center">
     <a href="https://github.com/ithsjavagroupd/project/actions/workflows/maven.yml">
@@ -70,7 +65,7 @@ The application also provides a Rest API for managing data programmatically. Her
 - 'GET /api/chains': retrieves a list of chains.
 - 'POST /api/stores': creates a new store
 - 'PUT /api/members': creates a new store
-To use REST API, you'll need to authenticate with a valid username and password.
+To use REST API, you'll need to authenticate with a valid username and password. You can create a new user by running the 'signup' endpoint with a POST request.
 
 ## Learning Objectives
 
