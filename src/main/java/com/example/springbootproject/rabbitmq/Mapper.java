@@ -1,6 +1,6 @@
-package com.example.springbootproject.mapper;
+package com.example.springbootproject.rabbitmq;
 
-import com.example.springbootproject.dto.ChainDto;
+import com.example.springbootproject.rabbitmq.ChainDto;
 import com.example.springbootproject.entity.Chain;
 
 

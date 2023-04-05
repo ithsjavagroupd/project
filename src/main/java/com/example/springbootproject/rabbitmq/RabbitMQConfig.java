@@ -1,4 +1,4 @@
-package com.example.springbootproject.config;
+package com.example.springbootproject.rabbitmq;
 
 
 import org.springframework.amqp.core.*;
