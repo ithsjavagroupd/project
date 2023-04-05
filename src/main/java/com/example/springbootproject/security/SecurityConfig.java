@@ -11,6 +11,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+    public static String api = "/api/**";
+
     @Bean
     public SecurityFilterChain filterChainFullAccess(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
@@ -20,10 +22,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/allchains/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/register").permitAll()
-                .requestMatchers(HttpMethod.POST, "/**").authenticated()
-                .requestMatchers(HttpMethod.PUT, "/**").authenticated()
-                .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
-                .anyRequest().authenticated()
+                .requestMatchers(HttpMethod.GET, api).authenticated()
+                .requestMatchers(HttpMethod.POST, api).authenticated()
+                .requestMatchers(HttpMethod.PUT, api).authenticated()
+                .requestMatchers(HttpMethod.DELETE, api).authenticated()
+                .anyRequest().denyAll()
                 .and()
                 .formLogin()
                 .and()
