@@ -1,8 +1,6 @@
-package com.example.springbootproject.consumer;
+package com.example.springbootproject.rabbitmq;
 
-import com.example.springbootproject.dto.ChainDto;
 import com.example.springbootproject.entity.Chain;
-import com.example.springbootproject.mapper.Mapper;
 import com.example.springbootproject.repository.ChainRepository;
 import org.slf4j.Logger;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

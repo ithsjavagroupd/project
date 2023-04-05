@@ -1,4 +1,4 @@
-package com.example.springbootproject.dto;
+package com.example.springbootproject.rabbitmq;
 
 import lombok.Data;
 

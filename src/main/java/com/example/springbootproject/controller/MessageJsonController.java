@@ -1,7 +1,7 @@
 package com.example.springbootproject.controller;
 
-import com.example.springbootproject.dto.ChainDto;
-import com.example.springbootproject.service.JsonPublisher;
+import com.example.springbootproject.rabbitmq.ChainDto;
+import com.example.springbootproject.rabbitmq.JsonPublisher;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

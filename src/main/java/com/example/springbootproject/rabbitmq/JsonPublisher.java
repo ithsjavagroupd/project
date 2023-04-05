@@ -1,6 +1,5 @@
-package com.example.springbootproject.service;
+package com.example.springbootproject.rabbitmq;
 
-import com.example.springbootproject.dto.ChainDto;
 import org.slf4j.Logger;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
